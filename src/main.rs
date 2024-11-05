@@ -28,6 +28,19 @@ impl<T: Debug> LinkedList<T> {
         }
         self.head = Some(new_node);
     }
+    fn pop_first(&mut self) -> Option<T> {
+        match self.head.take() {
+            Some(head_node) => {
+                self.head = head_node.next;
+
+                if self.head.is_none() {
+                    self.tail = None;
+                }
+                Some(head_node.value)
+            }
+            None => None,
+        }
+    }
     fn print_tail_address(&self) {
         if let Some(tail_ptr) = self.tail {
             println!("Address is {:?} ", tail_ptr);
@@ -35,7 +48,7 @@ impl<T: Debug> LinkedList<T> {
                 println!("Value is {:?} ", *tail_ptr);
             }
         } else {
-            println!("NONE")
+            println!("None")
         }
     }
 
@@ -54,6 +67,16 @@ fn main() {
     list1.prepend(32);
     list1.prepend(4);
     list1.prepend(89);
+    list1.print();
+    list1.print_tail_address();
+    list1.pop_first();
+    list1.print();
+    list1.print_tail_address();
+    list1.pop_first();
+    list1.pop_first();
+    list1.print();
+    list1.print_tail_address();
+    list1.prepend(8);
     list1.print();
     list1.print_tail_address();
 }
