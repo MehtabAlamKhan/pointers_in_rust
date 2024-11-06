@@ -52,6 +52,18 @@ impl<T: Debug> LinkedList<T> {
         }
         self.head = Some(new_node);
     }
+    fn append(&mut self, value: T) {
+        if self.tail.is_none() {
+            self.prepend(value);
+            return;
+        }
+        let new_node = Box::new(Node { value, next: None });
+        unsafe {
+            (*self.tail.unwrap()).next = Some(new_node);
+            self.tail = Some((*self.tail.unwrap()).next.as_mut().unwrap().as_mut());
+            return;
+        }
+    }
     fn pop_last(&mut self) -> Option<T> {
         if self.head.is_none() {
             return None;
@@ -126,6 +138,9 @@ fn main() {
     list1.print();
     list1.insert_at_pos(83, 8);
     list1.insert_at_pos(999, 4);
+    list1.print();
+    list1.print_tail_address();
+    list1.append(67);
     list1.print();
     list1.print_tail_address();
 }
