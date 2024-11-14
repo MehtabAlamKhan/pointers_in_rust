@@ -1,31 +1,34 @@
-mod ll;
-// mod ll1;
+// mod ll;
+// // mod ll1;
 mod BinaryTree;
 
-use ll::ListNode;
-use std::borrow::BorrowMut;
-// use ll1::LinkedList;
+// use ll::ListNode;
+// use std::borrow::BorrowMut;
+// // use ll1::LinkedList;
+
+use std::borrow::Borrow;
 use std::cell::RefCell;
 use std::rc::Rc;
 use BinaryTree::TreeNode;
 
 fn main() {
-    let mut tree = TreeNode::new(4);
-
-    let mut l1 = &mut Some(Box::new(ListNode::new(1)));
-    l1.as_mut().unwrap().next = Some(Box::new(ListNode::new(2)));
-    println!("{:?}", l1);
-
-    // pub fn invert_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-    //     if root == None {
-    //         return root;
-    //     }
-
-    //     // std::mem::swap(
-    //     //     root.unwrap().borrow().left.borrow_mut(),
-    //     //     root.unwrap().borrow().right.borrow_mut(),
-    //     // );
-
-    //     return root;
-    // }
+    pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut res = 0;
+        let mut q: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![root];
+        while !q.is_empty() {
+            for _ in 0..q.len() {
+                if let Some(Some(node)) = q.pop() {
+                    let mut bowrrowed_node = node.borrow_mut();
+                    if bowrrowed_node.left.is_some() {
+                        q.push(bowrrowed_node.left.take());
+                    }
+                    if bowrrowed_node.right.is_some() {
+                        q.push(bowrrowed_node.right.take());
+                    }
+                }
+            }
+            res += 1;
+        }
+        res
+    }
 }
