@@ -6,29 +6,16 @@ mod BinaryTree;
 // use std::borrow::BorrowMut;
 // // use ll1::LinkedList;
 
-use std::borrow::Borrow;
+use std::borrow::{Borrow, BorrowMut};
 use std::cell::RefCell;
 use std::rc::Rc;
 use BinaryTree::TreeNode;
 
 fn main() {
-    pub fn max_depth(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        let mut q: Vec<Vec<(Option<Rc<RefCell<TreeNode>>>, i32)>> = vec![vec![root, root.unwrap().borrow_mut().]];
         let mut res = 0;
-        let mut q: Vec<Option<Rc<RefCell<TreeNode>>>> = vec![root];
-        while !q.is_empty() {
-            for _ in 0..q.len() {
-                if let Some(Some(node)) = q.pop() {
-                    let mut bowrrowed_node = node.borrow_mut();
-                    if bowrrowed_node.left.is_some() {
-                        q.push(bowrrowed_node.left.take());
-                    }
-                    if bowrrowed_node.right.is_some() {
-                        q.push(bowrrowed_node.right.take());
-                    }
-                }
-            }
-            res += 1;
-        }
-        res
+        while !q.is_empty() {}
+        return 3;
     }
 }
