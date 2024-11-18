@@ -13,9 +13,11 @@ use BinaryTree::TreeNode;
 
 fn main() {
     pub fn good_nodes(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-        let mut q: Vec<Vec<(Option<Rc<RefCell<TreeNode>>>, i32)>> = vec![vec![root, root.unwrap().borrow_mut().]];
+        let mut q: Vec<(Option<Rc<RefCell<TreeNode>>>, i32)> =
+            vec![(root.clone(), root.clone().unwrap().borrow_mut().val)];
         let mut res = 0;
-        while !q.is_empty() {}
-        return 3;
+        while !q.is_empty() {
+            // let (node, max_val) = q.pop();
+        }
     }
 }
